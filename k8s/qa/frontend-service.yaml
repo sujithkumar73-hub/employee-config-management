@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: employee-qa
+  labels:
+    app: employee-management-frontend
+    environment: qa
+spec:
+  type: ClusterIP
+  selector:
+    app: employee-management-frontend
+    environment: qa
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

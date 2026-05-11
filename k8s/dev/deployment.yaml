@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-dev-backend
+  namespace: employee-dev
+  labels:
+    app: employee-management
+    environment: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-management
+      environment: dev
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: employee-management
+        environment: dev
+    spec:
+      containers:
+        - name: backend
+          image: employee-management-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: ems-dev-config
+            - secretRef:
+                name: ems-dev-secret
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 8
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "150Mi"
+            limits:
+              cpu: "250m"
+              memory: "300Mi"

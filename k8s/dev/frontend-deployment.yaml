@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-dev-frontend
+  namespace: employee-dev
+  labels:
+    app: employee-management-frontend
+    environment: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-management-frontend
+      environment: dev
+  template:
+    metadata:
+      labels:
+        app: employee-management-frontend
+        environment: dev
+    spec:
+      containers:
+        - name: frontend
+          image: employee-management-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
+            limits:
+              cpu: "150m"
+              memory: "200Mi"

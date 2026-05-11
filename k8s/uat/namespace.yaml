@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: employee-uat
+  labels:
+    environment: uat
+    app: employee-management

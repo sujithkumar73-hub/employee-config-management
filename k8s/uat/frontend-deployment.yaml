@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-uat-frontend
+  namespace: employee-uat
+  labels:
+    app: employee-management-frontend
+    environment: uat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-management-frontend
+      environment: uat
+  template:
+    metadata:
+      labels:
+        app: employee-management-frontend
+        environment: uat
+    spec:
+      containers:
+        - name: frontend
+          image: employee-management-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "150Mi"
+            limits:
+              cpu: "200m"
+              memory: "250Mi"

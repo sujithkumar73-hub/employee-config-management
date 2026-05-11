@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-uat-backend
+  namespace: employee-uat
+  labels:
+    app: employee-management
+    environment: uat
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: employee-management
+      environment: uat
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: employee-management
+        environment: uat
+    spec:
+      containers:
+        - name: backend
+          image: employee-management-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: ems-uat-config
+            - secretRef:
+                name: ems-uat-secret
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 12
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 24
+            periodSeconds: 20
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "250Mi"
+            limits:
+              cpu: "400m"
+              memory: "500Mi"

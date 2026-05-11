@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ems-uat-config
+  namespace: employee-uat
+data:
+  APP_MODE: "UAT"
+  FLASK_ENV: "production"
+  FEATURE_DEBUG: "false"
+  API_URL: "http://backend.employee-uat.svc.cluster.local:5000"
+  LOG_LEVEL: "INFO"
+  DATABASE_URL: "sqlite:///./backend/instance/uat.db"

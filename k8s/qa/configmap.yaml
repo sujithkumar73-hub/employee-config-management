@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ems-qa-config
+  namespace: employee-qa
+data:
+  APP_MODE: "QA"
+  FLASK_ENV: "development"
+  FEATURE_DEBUG: "true"
+  API_URL: "http://backend.employee-qa.svc.cluster.local:5000"
+  LOG_LEVEL: "DEBUG"
+  DATABASE_URL: "sqlite:///./backend/instance/qa.db"

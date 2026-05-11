@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: employee-uat
+  labels:
+    app: employee-management
+    environment: uat
+spec:
+  type: ClusterIP
+  selector:
+    app: employee-management
+    environment: uat
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

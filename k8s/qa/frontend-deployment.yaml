@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-qa-frontend
+  namespace: employee-qa
+  labels:
+    app: employee-management-frontend
+    environment: qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-management-frontend
+      environment: qa
+  template:
+    metadata:
+      labels:
+        app: employee-management-frontend
+        environment: qa
+    spec:
+      containers:
+        - name: frontend
+          image: employee-management-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
+            limits:
+              cpu: "150m"
+              memory: "200Mi"

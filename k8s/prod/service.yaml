@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: employee-prod
+  labels:
+    app: employee-management
+    environment: prod
+spec:
+  type: ClusterIP
+  selector:
+    app: employee-management
+    environment: prod
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

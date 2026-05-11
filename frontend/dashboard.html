@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="employees.html">Employees</a>
+      <a href="index.html">Sign Out</a>
+    </nav>
+  </header>
+  <main class="hero">
+    <section id="envBanner" class="banner"></section>
+    <section class="card">
+      <h2>Environment Overview</h2>
+      <div id="statusAlert" class="alert" style="display:none"></div>
+      <div class="status-grid">
+        <div class="status-card"><strong>Environment</strong><span id="envName">Loading...</span></div>
+        <div class="status-card"><strong>Deployment Status</strong><span id="deploymentStatus">Online</span></div>
+        <div class="status-card"><strong>API Status</strong><span id="apiStatus">Pending</span></div>
+        <div class="status-card"><strong>Database Status</strong><span id="dbStatus">Pending</span></div>
+        <div class="status-card"><strong>Total Employees</strong><span id="employeeCount">Loading...</span></div>
+      </div>
+    </section>
+    <section class="card">
+      <h2>Quick Actions</h2>
+      <p>Use the employee panel to manage staff records and monitor system health.</p>
+      <a class="button" href="employees.html">Open Employee Manager</a>
+    </section>
+  </main>
+  <footer class="footer">Employee Management System - Multi-Environment Configuration Demo</footer>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

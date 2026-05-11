@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-qa-backend
+  namespace: employee-qa
+  labels:
+    app: employee-management
+    environment: qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-management
+      environment: qa
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: employee-management
+        environment: qa
+    spec:
+      containers:
+        - name: backend
+          image: employee-management-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: ems-qa-config
+            - secretRef:
+                name: ems-qa-secret
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 12
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 22
+            periodSeconds: 20
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "150m"
+              memory: "200Mi"
+            limits:
+              cpu: "300m"
+              memory: "400Mi"

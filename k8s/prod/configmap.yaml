@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ems-prod-config
+  namespace: employee-prod
+data:
+  APP_MODE: "Production"
+  FLASK_ENV: "production"
+  FEATURE_DEBUG: "false"
+  API_URL: "http://backend.employee-prod.svc.cluster.local:5000"
+  LOG_LEVEL: "WARNING"
+  DATABASE_URL: "sqlite:///./backend/instance/prod.db"
