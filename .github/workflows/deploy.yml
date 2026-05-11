@@ -22,7 +22,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
@@ -30,8 +30,11 @@ jobs:
           pip install -r backend/requirements.txt
 
       - name: Validate Python code and run tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
-          pytest backend/tests
+          mkdir -p backend/instance
+          python -m pytest backend/tests
 
       - name: Determine target environment
         id: env
@@ -70,7 +73,7 @@ jobs:
       - name: Validate Kubernetes manifests
         uses: azure/setup-kubectl@v4
         with:
-          version: '1.30.0'
+          version: "1.30.0"
       - name: Dry-run manifest validation
         run: |
           kubectl apply --dry-run=client -f k8s/${{ env.TARGET_ENV }}
