@@ -33,4 +33,4 @@ def test_status_check_requires_database_access():
         assert response.status_code == 200
         payload = response.get_json()
         assert payload["status"] == "success"
-        assert isinstance(payload["data"]["total_employees"], int)
+        assert isinstance(payload["total_employees"], int)
